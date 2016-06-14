@@ -5,7 +5,7 @@ os:
 env:
   global:
   - BUILD_FOLDER=$TRAVIS_BUILD_DIR/build.tmp
-  - SKETCH_LOCATION="$TRAVIS_BUILD_DIR"
+  - SKETCH_LOCATION="$TRAVIS_BUILD_DIR/MyMelvanimate"
   - LIBRARIES_LOCATION="-l $HOME/Arduino/libraries"
   - BOARD_TYPE="-b generic"
   - FLASH_SIZE="-s 4M3M"
@@ -15,52 +15,52 @@ env:
   - secure: bSVRodaJ1vB7+sHSlIB++zWOu6Ur/OqNQqwyL0EhDnF2sdf2iZf1pStfUM+X1UFDSzjuvUTd0TFl0o5FGfI2v+JEWgdVE+ycjyU9N1O7Hb1sRckiquAjOfjH8mq7cpLaSMmUn5KLZ2sq//nHijoRMP9L+rNbrnIJs1aVG7cnnb2kERV4QpYDKvRdPT6I4QVnDpQU6ZCSYkNXN7N2vUK4Ns3XgJRtX45cg8+hY6E8gJQTPUtcZya1c6dryHj27yxc3aUMU+PLgbKEOmdWtay4FKFBacq3tcZdsuz+cu5M1qarwiyFSmlzWr69AQVthdv2TH/pb7YkRYceRWHCcs5AZlK4lEDJpYFijyACKsGBSv6ISpaDLTSDCTiZZOT8lnOWGRB5skLgyuPEx0K5LfDF0Bz+FPnWz9VU2NcibiLr/jpl2MRtfAHUZSEZEPRQ71p9vXX1aXQanmBvhrGi8msrQFAjED8zUrVySxth65ALcHlMKJv2VNfq8curSmcKd9PtTM602bm3LAObLptiOM3o5QP5iGjU0pn8Sigb7bjYKrrIpXkK+p2nb2LRf1iQLCCh6f+KHrSnA693EZEto8Eqcet26gunqfcPcIM8xPI7IAAfu9xQy++S8BAxjNfghnX9JIdlEMOqVgRz7pZecGPxe6fHkuO1FSaS43z30D0Zn7k=
   - secure: gvMTOil5eKinCGLy4oDgUxhkuZus7f0BBIoVpA8XJhmQwANzhrxE68322BIS4GbU8NnM1Ko43q24X6Rr07txsJp7ebNdqyNxehfuxsJw0Qf7HqLIOXJrNPHggHNjHjusZA5/t4dYIkp1LiD717rI8mcoSpxw9acqDr1u3xDM6x+x77M9+JSPLBUuC2jmN92ahZYrRd0sQOCmuwcs5BZULj6yh3qqPLmyNZ6nsoT2f31/dcRdCLv5jQoIHGOuwxEIyq893HsDn6WkooxTBvW1RgiFIrHePkdVpwtoY4in/zD1HGuP7qIhEwJCDdbYit2RuU29BF5NR2K0cgaB2NuwA2vB3jB9lS+foWbdeJ7u6DpSHnEFdSRZwgaU1IDI0vQaIizC/44Al2eSt5mtjTwNzNHbF8J0RWqx62DQJxOvBNtUUygBKZoa2VW5PuxcHtD6ic4uRyAPe51OiLt9nJOCC4W5e1khs8kJHw7U+Mk7FWitr6umPoS4e4l5qdxEjD1CGUwzxlOhyCXtplui2+q2jRmvSWWn9PFpvekjm6n8gBZaWl4IDwzFF0eS/2IM5e3G8bKK/Txom83LXmk9RXbj7djgcdoQfj89GkXiKORfApnq7+ujVfQEMOBVTg3EoKHMzmzX8zARjb+Sad4zQaKkEpJDX21m4yRo0Flo3aBUOgo=
 before_install:
-- openssl aes-256-cbc -K $encrypted_ed85223b1ca4_key -iv $encrypted_ed85223b1ca4_iv
-  -in travisgit.enc -out /tmp/travis.key -d
-- chmod 600 /tmp/travis.key
-- ssh-keyscan -t ssh-dss,rsa,ecdsa -p 4022 -H $DEPLOY_DEST 2>&1 | tee -a $HOME/.ssh/known_hosts
+  - openssl aes-256-cbc -K $encrypted_ed85223b1ca4_key -iv $encrypted_ed85223b1ca4_iv
+    -in travisgit.enc -out /tmp/travis.key -d
+  - chmod 600 /tmp/travis.key
+  - ssh-keyscan -t ssh-dss,rsa,ecdsa -p 4022 -H $DEPLOY_DEST 2>&1 | tee -a $HOME/.ssh/known_hosts
 install:
-- wget -O arduino.tar.xz https://www.arduino.cc/download.php?f=/arduino-nightly-linux64.tar.xz
-- tar xf arduino.tar.xz
-- mv arduino-nightly $HOME/arduino_ide
-- cd $HOME/arduino_ide/hardware
-- mkdir esp8266com
-- cd esp8266com
-- git clone https://github.com/sticilface/arduino-esp8266 esp8266
-- cd esp8266/tools
-- python get.py
-- export PATH="$HOME/arduino_ide:$HOME/arduino_ide/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin:$PATH"
-- which arduino
-- which xtensa-lx106-elf-size
-- cd $TRAVIS_BUILD_DIR
-- source $HOME/arduino_ide/hardware/esp8266com/esp8266/tests/common.sh
-- git clone https://github.com/sticilface/mypythondeployscript $HOME/scripts
-- mkdir -p $HOME/Arduino/libraries
-- git clone https://github.com/bblanchon/ArduinoJson          $HOME/Arduino/libraries/ArduinoJson
-- git clone https://github.com/me-no-dev/ESPAsyncTCP          $HOME/Arduino/libraries/ESPAsyncTCP
-- git clone https://github.com/me-no-dev/ESPAsyncWebServer    $HOME/Arduino/libraries/ESPAsyncWebServer
-- git clone https://github.com/Makuna/NeoPixelBus             $HOME/Arduino/libraries/NeoPixelBus
-- git clone https://github.com/knolleary/pubsubclient         $HOME/Arduino/libraries/pubsubclient
-- git clone https://github.com/adafruit/Adafruit-GFX-Library  $HOME/Arduino/libraries/Adafruit-GFX-Library
-- git clone -b upgrade-gui https://github.com/sticilface/ESPmanager    $HOME/Arduino/libraries/ESPmanager
-- git clone -b async https://github.com/sticilface/Melvanimate         $HOME/Arduino/libraries/Melvanimate
-- cd $TRAVIS_BUILD_DIR
+  - wget -O arduino.tar.xz https://www.arduino.cc/download.php?f=/arduino-nightly-linux64.tar.xz
+  - tar xf arduino.tar.xz
+  - mv arduino-nightly $HOME/arduino_ide
+  - cd $HOME/arduino_ide/hardware
+  - mkdir esp8266com
+  - cd esp8266com
+  - git clone https://github.com/sticilface/arduino-esp8266 esp8266
+  - cd esp8266/tools
+  - python get.py
+  - export PATH="$HOME/arduino_ide:$HOME/arduino_ide/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin:$PATH"
+  - which arduino
+  - which xtensa-lx106-elf-size
+  - cd $TRAVIS_BUILD_DIR
+  - source $HOME/arduino_ide/hardware/esp8266com/esp8266/tests/common.sh
+  - git clone https://github.com/sticilface/mypythondeployscript $HOME/scripts
+  - mkdir -p $HOME/Arduino/libraries
+  - git clone https://github.com/bblanchon/ArduinoJson          $HOME/Arduino/libraries/ArduinoJson
+  - git clone https://github.com/me-no-dev/ESPAsyncTCP          $HOME/Arduino/libraries/ESPAsyncTCP
+  - git clone https://github.com/me-no-dev/ESPAsyncWebServer    $HOME/Arduino/libraries/ESPAsyncWebServer
+  - git clone https://github.com/Makuna/NeoPixelBus             $HOME/Arduino/libraries/NeoPixelBus
+  - git clone https://github.com/knolleary/pubsubclient         $HOME/Arduino/libraries/pubsubclient
+  - git clone https://github.com/adafruit/Adafruit-GFX-Library  $HOME/Arduino/libraries/Adafruit-GFX-Library
+  - git clone -b upgrade-gui https://github.com/sticilface/ESPmanager    $HOME/Arduino/libraries/ESPmanager
+  - git clone -b async https://github.com/sticilface/Melvanimate         $HOME/Arduino/libraries/Melvanimate
+  - cd $TRAVIS_BUILD_DIR
 script:
-- echo -e "travis_fold:end:sketch_test_env_prepare"
-- echo -e "travis_fold:start:sketch_test"
-- build_sketches $HOME/arduino_ide $SKETCH_LOCATION $BUILD_FOLDER "$LIBRARIES_LOCATION
-  $OUTPUT_FILE $BOARD_TYPE $FLASH_SIZE $CPU_SPEED $DEBUG_PORT $DEBUG_LEVEL"
-- echo -e "travis_fold:end:sketch_test"
+  - echo -e "travis_fold:end:sketch_test_env_prepare"
+  - echo -e "travis_fold:start:sketch_test"
+  - build_sketches $HOME/arduino_ide $SKETCH_LOCATION $BUILD_FOLDER "$LIBRARIES_LOCATION
+    $OUTPUT_FILE $BOARD_TYPE $FLASH_SIZE $CPU_SPEED $DEBUG_PORT $DEBUG_LEVEL"
+  - echo -e "travis_fold:end:sketch_test"
 after_success:
-- echo -e "travis_fold:start:size_report"
-- cat size.log
-- echo -e "travis_fold:end:size_report"
-- ls -la $TRAVIS_BUILD_DIR/*.bin
-- mkdir /tmp/package
-- cp $TRAVIS_BUILD_DIR/firmware.bin "/tmp/package/firmware.bin"
-- cp -r "$SKETCH_LOCATION/data" "/tmp/package/"
-- cp -r "$HOME/Arduino/libraries/ESPmanager/data" "/tmp/package/"
-- ls /tmp/package/
+  - echo -e "travis_fold:start:size_report"
+  - cat size.log
+  - echo -e "travis_fold:end:size_report"
+  - ls -la $TRAVIS_BUILD_DIR/*.bin
+  - mkdir /tmp/package
+  - cp $TRAVIS_BUILD_DIR/firmware.bin "/tmp/package/firmware.bin"
+  - cp -r "$SKETCH_LOCATION/data" "/tmp/package/"
+  - cp -r "$HOME/Arduino/libraries/ESPmanager/data" "/tmp/package/"
+  - ls /tmp/package/
 deploy:
 - provider: script
   skip_cleanup: true
