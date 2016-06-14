@@ -16,7 +16,8 @@ env:
   - secure: gvMTOil5eKinCGLy4oDgUxhkuZus7f0BBIoVpA8XJhmQwANzhrxE68322BIS4GbU8NnM1Ko43q24X6Rr07txsJp7ebNdqyNxehfuxsJw0Qf7HqLIOXJrNPHggHNjHjusZA5/t4dYIkp1LiD717rI8mcoSpxw9acqDr1u3xDM6x+x77M9+JSPLBUuC2jmN92ahZYrRd0sQOCmuwcs5BZULj6yh3qqPLmyNZ6nsoT2f31/dcRdCLv5jQoIHGOuwxEIyq893HsDn6WkooxTBvW1RgiFIrHePkdVpwtoY4in/zD1HGuP7qIhEwJCDdbYit2RuU29BF5NR2K0cgaB2NuwA2vB3jB9lS+foWbdeJ7u6DpSHnEFdSRZwgaU1IDI0vQaIizC/44Al2eSt5mtjTwNzNHbF8J0RWqx62DQJxOvBNtUUygBKZoa2VW5PuxcHtD6ic4uRyAPe51OiLt9nJOCC4W5e1khs8kJHw7U+Mk7FWitr6umPoS4e4l5qdxEjD1CGUwzxlOhyCXtplui2+q2jRmvSWWn9PFpvekjm6n8gBZaWl4IDwzFF0eS/2IM5e3G8bKK/Txom83LXmk9RXbj7djgcdoQfj89GkXiKORfApnq7+ujVfQEMOBVTg3EoKHMzmzX8zARjb+Sad4zQaKkEpJDX21m4yRo0Flo3aBUOgo=
 before_install:
 - openssl aes-256-cbc -K $encrypted_ed85223b1ca4_key -iv $encrypted_ed85223b1ca4_iv
-  -in travisgit.enc -out ~\/.ssh/travisgit -d
+  -in travisgit.enc -out /tmp/travis.key -d
+- chmod 600 /tmp/travis.key
 - ssh-keyscan -t ssh-dss,rsa,ecdsa -p 4022 -H $DEPLOY_DEST 2>&1 | tee -a $HOME/.ssh/known_hosts
 install:
 - wget -O arduino.tar.xz https://www.arduino.cc/download.php?f=/arduino-nightly-linux64.tar.xz
