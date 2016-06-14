@@ -59,7 +59,7 @@ after_success:
   - mkdir /tmp/package
   - cp $TRAVIS_BUILD_DIR/firmware.bin "/tmp/package/firmware.bin"
   - cp -r "$SKETCH_LOCATION/data" "/tmp/package/"
-  - cp -r "$HOME/Arduino/libraries/Melvanimate/examples/ESPmanager-example/data" "/tmp/package/"  #overwrite with newest manager stuff
+  - cp -r "$HOME/Arduino/libraries/ESPmanager/examples/ESPmanager-example/data" "/tmp/package/"  #overwrite with newest manager stuff
   - cp -r "$HOME/Arduino/libraries/Melvanimate/examples/Melvanimate-example/data "/tmp/package/"  #overwrite with newer manager stuff 
   - ls /tmp/package/
 deploy:
