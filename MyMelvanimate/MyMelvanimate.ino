@@ -9,7 +9,7 @@
 
 --------------------------------------------------------------------------------------------------------*/
 
-//#define DEBUG_ESP_PORT Serial
+#define DEBUG_ESP_PORT Serial
 
 #include <FS.h>
 #include <ESP8266WiFi.h>
