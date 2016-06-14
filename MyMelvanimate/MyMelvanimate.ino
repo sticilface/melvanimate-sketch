@@ -9,6 +9,8 @@
 
 --------------------------------------------------------------------------------------------------------*/
 
+#define DEBUG_ESP_PORT Serial
+
 #include <FS.h>
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
