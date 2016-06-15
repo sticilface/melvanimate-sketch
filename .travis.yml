@@ -27,7 +27,7 @@ install:
   - cd $HOME/arduino_ide/hardware
   - mkdir esp8266com
   - cd esp8266com
-  - git clone https://github.com/sticilface/arduino-esp8266 esp8266
+  - git clone -b travis https://github.com/sticilface/Arduino esp8266
   - cd esp8266/tools
   - python get.py
   - export PATH="$HOME/arduino_ide:$HOME/arduino_ide/hardware/esp8266com/esp8266/tools/xtensa-lx106-elf/bin:$PATH"
